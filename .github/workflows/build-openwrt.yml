@@ -9,7 +9,6 @@ env:
   CONFIG_FILE: .config
   DIY_P1_SH: op1.sh
   DIY_P2_SH: op2.sh
-  DIY_P3_SH: op3.sh
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
@@ -63,15 +62,14 @@ jobs:
 
     - name: 添加玩客云设备
       run: |
-        chmod +x $DIY_P1_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P1_SH
+        git clone https://github.com/dongjany/amlogic.git target/linux/amlogic
 
     - name: 添加额外软件包
       run: |
-        chmod +x $DIY_P2_SH
+        chmod +x $DIY_P1_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: 应用补丁
       run: |
@@ -83,9 +81,9 @@ jobs:
     - name: 添加自定义设备配置
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        chmod +x $DIY_P3_SH
+        chmod +x $DIY_P2_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P3_SH
+        $GITHUB_WORKSPACE/$DIY_P2_SH
 
     - name: Download package
       id: package
