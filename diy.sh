@@ -10,8 +10,7 @@ SHELL_FOLDER=$(dirname $(readlink -f "$0"))
 
 #git_clone_path c640f7b93736621b4d56627e4f6ab824093f9c3d https://github.com/openwrt/openwrt package/kernel/mac80211
 
-
-git_clone_path main https://github.com/lxiaya/openwrt-onecloud target/linux/amlogic
+git clone https://github.com/dongjany/amlogic.git target/linux/amlogic
 
 mv -f gen_aml_emmc_img.sh target/linux/amlogic/image/
 
