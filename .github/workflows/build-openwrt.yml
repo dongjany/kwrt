@@ -86,7 +86,9 @@ jobs:
         make target/linux/prepare -j$(nproc)
         export PATH=$PATH:$(pwd)/staging_dir/toolchain-arm_cortex-a5+vfpv4_musl_eabi/bin
         export STAGING_DIR=$(pwd)/staging_dir
-        KERNEL_CONFIG="build_dir/target-arm_cortex-a5+vfpv4_musl_eabi/linux-amlogic_meson8b/linux-6.6.118/.config"
+        KERNEL_VERSION_FILE="include/kernel-6.6"
+        KERNEL_FULL_VER=$(grep -E "^LINUX_VERSION-${KERNEL_MAIN_VER}:=" "$KERNEL_VERSION_FILE" | cut -d'=' -f2 | tr -d '[:space:]')
+        KERNEL_CONFIG="build_dir/target-arm_cortex-a5+vfpv4_musl_eabi/linux-amlogic_meson8b/linux-${KERNEL_FULL_VER}/.config"
         if [ ! -f "$KERNEL_CONFIG" ]; then
           echo "内核配置文件缺失，手动生成..."
           mkdir -p $(dirname "$KERNEL_CONFIG")
